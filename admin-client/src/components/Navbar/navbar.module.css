@@ -1,0 +1,17 @@
+.navItem, .navActive {
+    @apply p-4 rounded-md;
+    color: #b8bfc8;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.navItem:hover {
+    background-color: #f8f9ff;
+    color: #5d7df3;
+}
+
+.navActive {
+    background-color: #ebf0fe;
+    color: #335cf5;
+    font-weight: 700;
+}

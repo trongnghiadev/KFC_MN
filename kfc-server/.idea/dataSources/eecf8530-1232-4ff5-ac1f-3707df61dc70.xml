@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="defaultdb@db-kfc-cnpm2023-3857.6xw.cockroachlabs.cloud">
+  <database-model serializer="dbm" dbms="COCKROACH" family-id="COCKROACH" format-version="4.45">
+    <root id="1">
+      <DateStyle>mdy</DateStyle>
+      <Grants>1||1546506610|c|G
+1||2310524507|c|G
+100||1546506610|4|G
+100||2310524507|4|G
+100||-9223372036854775808|c|G
+102||1546506610|4|G
+102||2310524507|4|G
+102||-9223372036854775808|c|G</Grants>
+      <ServerVersion>22.2.4</ServerVersion>
+    </root>
+    <database id="2" parent="1" name="defaultdb">
+      <Current>1</Current>
+      <Grants>101||1546506610|4|G
+101||2310524507|4|G
+101||-9223372036854775808|C|G
+101||-9223372036854775808|U|G
+87650149||-9223372036854775808|U|G
+596475511||-9223372036854775808|U|G
+1930936538||-9223372036854775808|U|G
+2870032525||-9223372036854775808|U|G</Grants>
+      <ObjectId>100</ObjectId>
+      <OwnerName>root</OwnerName>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <ObjectId>102</ObjectId>
+      <OwnerName>root</OwnerName>
+    </database>
+    <database id="4" parent="1" name="system">
+      <ObjectId>1</ObjectId>
+      <OwnerName>unknown (OID=3233629770)</OwnerName>
+    </database>
+    <role id="5" parent="1" name="admin">
+      <CanLogin>1</CanLogin>
+      <ObjectId>2310524507</ObjectId>
+    </role>
+    <role id="6" parent="1" name="chikhanh">
+      <CanLogin>1</CanLogin>
+      <ObjectId>3119362944</ObjectId>
+      <RoleGrants>2310524507</RoleGrants>
+    </role>
+    <role id="7" parent="1" name="root">
+      <CanLogin>1</CanLogin>
+      <ObjectId>1546506610</ObjectId>
+      <RoleGrants>2310524507!</RoleGrants>
+    </role>
+    <schema id="8" parent="2" name="crdb_internal">
+      <ObjectId>87650149</ObjectId>
+    </schema>
+    <schema id="9" parent="2" name="information_schema">
+      <ObjectId>1930936538</ObjectId>
+    </schema>
+    <schema id="10" parent="2" name="pg_catalog">
+      <ObjectId>2870032525</ObjectId>
+    </schema>
+    <schema id="11" parent="2" name="pg_extension">
+      <ObjectId>596475511</ObjectId>
+    </schema>
+    <schema id="12" parent="2" name="public">
+      <Current>1</Current>
+      <Grants>137||1546506610|4|G
+137||2310524507|4|G
+137||3119362944|4|G
+146||1546506610|4|G
+146||2310524507|4|G
+146||3119362944|4|G
+252||1546506610|4|G
+252||2310524507|4|G
+252||3119362944|4|G
+253||1546506610|4|G
+253||2310524507|4|G
+253||3119362944|4|G
+254||1546506610|4|G
+254||2310524507|4|G
+254||3119362944|4|G
+335||1546506610|4|G
+335||2310524507|4|G
+335||3119362944|4|G
+340||1546506610|4|G
+340||2310524507|4|G
+340||3119362944|4|G
+347||1546506610|4|G
+347||2310524507|4|G
+347||3119362944|4|G
+348||1546506610|4|G
+348||2310524507|4|G
+348||3119362944|4|G
+349||1546506610|4|G
+349||2310524507|4|G
+349||3119362944|4|G
+451||1546506610|4|G
+451||2310524507|4|G
+451||3119362944|4|G
+458||1546506610|4|G
+458||2310524507|4|G
+458||3119362944|4|G
+459||1546506610|4|G
+459||2310524507|4|G
+459||3119362944|4|G
+460||1546506610|4|G
+460||2310524507|4|G
+460||3119362944|4|G
+589||1546506610|4|G
+589||2310524507|4|G
+589||3119362944|4|G
+693||1546506610|4|G
+693||2310524507|4|G
+693||3119362944|4|G
+708||1546506610|4|G
+708||2310524507|4|G
+708||3119362944|4|G
+709||1546506610|4|G
+709||2310524507|4|G
+709||3119362944|4|G
+710||1546506610|4|G
+710||2310524507|4|G
+710||3119362944|4|G
+711||1546506610|4|G
+711||2310524507|4|G
+711||3119362944|4|G
+712||1546506610|4|G
+712||2310524507|4|G
+712||3119362944|4|G
+100142||1546506610|4|G
+100142||2310524507|4|G
+100142||3119362944|4|G
+100142||-9223372036854775808|U|G
+100144||1546506610|4|G
+100144||2310524507|4|G
+100144||3119362944|4|G
+100144||-9223372036854775808|U|G
+100246||1546506610|4|G
+100246||2310524507|4|G
+100246||3119362944|4|G
+100246||-9223372036854775808|U|G
+100248||1546506610|4|G
+100248||2310524507|4|G
+100248||3119362944|4|G
+100248||-9223372036854775808|U|G
+100250||1546506610|4|G
+100250||2310524507|4|G
+100250||3119362944|4|G
+100250||-9223372036854775808|U|G
+100336||1546506610|4|G
+100336||2310524507|4|G
+100336||3119362944|4|G
+100336||-9223372036854775808|U|G
+100338||1546506610|4|G
+100338||2310524507|4|G
+100338||3119362944|4|G
+100338||-9223372036854775808|U|G
+100341||1546506610|4|G
+100341||2310524507|4|G
+100341||3119362944|4|G
+100341||-9223372036854775808|U|G
+100343||1546506610|4|G
+100343||2310524507|4|G
+100343||3119362944|4|G
+100343||-9223372036854775808|U|G
+100345||1546506610|4|G
+100345||2310524507|4|G
+100345||3119362944|4|G
+100345||-9223372036854775808|U|G
+100447||1546506610|4|G
+100447||2310524507|4|G
+100447||3119362944|4|G
+100447||-9223372036854775808|U|G
+100449||1546506610|4|G
+100449||2310524507|4|G
+100449||3119362944|4|G
+100449||-9223372036854775808|U|G
+100452||1546506610|4|G
+100452||2310524507|4|G
+100452||3119362944|4|G
+100452||-9223372036854775808|U|G
+100454||1546506610|4|G
+100454||2310524507|4|G
+100454||3119362944|4|G
+100454||-9223372036854775808|U|G
+100456||1546506610|4|G
+100456||2310524507|4|G
+100456||3119362944|4|G
+100456||-9223372036854775808|U|G
+100698||1546506610|4|G
+100698||2310524507|4|G
+100698||3119362944|4|G
+100698||-9223372036854775808|U|G
+100700||1546506610|4|G
+100700||2310524507|4|G
+100700||3119362944|4|G
+100700||-9223372036854775808|U|G
+100702||1546506610|4|G
+100702||2310524507|4|G
+100702||3119362944|4|G
+100702||-9223372036854775808|U|G
+100704||1546506610|4|G
+100704||2310524507|4|G
+100704||3119362944|4|G
+100704||-9223372036854775808|U|G
+100706||1546506610|4|G
+100706||2310524507|4|G
+100706||3119362944|4|G
+100706||-9223372036854775808|U|G</Grants>
+      <ObjectId>101</ObjectId>
+      <OwnerName>admin</OwnerName>
+    </schema>
+    <object-type id="13" parent="12" name="Food_Cat">
+      <Labels>new
+combo4one
+combo4group
+chicken
+carb
+snack
+drink
+desert
+other</Labels>
+      <ObjectId>100706</ObjectId>
+      <SubKind>enum</SubKind>
+      <OwnerName>chikhanh</OwnerName>
+    </object-type>
+    <object-type id="14" parent="12" name="Food_State">
+      <Labels>onsale
+available
+unavailable</Labels>
+      <ObjectId>100704</ObjectId>
+      <SubKind>enum</SubKind>
+      <OwnerName>chikhanh</OwnerName>
+    </object-type>
+    <object-type id="15" parent="12" name="Ingredient_Unit">
+      <Labels>g
+kg
+l
+ml
+the</Labels>
+      <ObjectId>100702</ObjectId>
+      <SubKind>enum</SubKind>
+      <OwnerName>chikhanh</OwnerName>
+    </object-type>
+    <object-type id="16" parent="12" name="User_Role">
+      <Labels>admin
+wh
+sale
+hr
+other</Labels>
+      <ObjectId>100700</ObjectId>
+      <SubKind>enum</SubKind>
+      <OwnerName>chikhanh</OwnerName>
+    </object-type>
+    <object-type id="17" parent="12" name="User_State">
+      <Labels>available
+unavailable
+blocked</Labels>
+      <ObjectId>100698</ObjectId>
+      <SubKind>enum</SubKind>
+      <OwnerName>chikhanh</OwnerName>
+    </object-type>
+    <table id="18" parent="12" name="FoodIngredient">
+      <ObjectId>712</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <table id="19" parent="12" name="FoodItem">
+      <ObjectId>711</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <table id="20" parent="12" name="Ingredient">
+      <ObjectId>710</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <table id="21" parent="12" name="Supplier">
+      <ObjectId>709</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <table id="22" parent="12" name="User">
+      <ObjectId>708</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <table id="23" parent="12" name="_prisma_migrations">
+      <ObjectId>693</ObjectId>
+      <OwnerName>chikhanh</OwnerName>
+    </table>
+    <column id="24" parent="18" name="foodId">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="25" parent="18" name="ingredientId">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="26" parent="18" name="amount">
+      <DasType>numeric(65,30 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <TypeId>1700</TypeId>
+    </column>
+    <foreign-key id="27" parent="18" name="FoodIngredient_foodId_fkey">
+      <ColNames>foodId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>2221605435</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <RefTableId>711</RefTableId>
+      <RefTableName>FoodItem</RefTableName>
+    </foreign-key>
+    <foreign-key id="28" parent="18" name="FoodIngredient_ingredientId_fkey">
+      <ColNames>ingredientId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>2381919117</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <RefTableId>710</RefTableId>
+      <RefTableName>Ingredient</RefTableName>
+    </foreign-key>
+    <index id="29" parent="18" name="FoodIngredient_pkey">
+      <ColNames>foodId
+ingredientId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3775324158</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <key id="30" parent="18" name="FoodIngredient_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3775324158</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>3775324158</UnderlyingIndexId>
+    </key>
+    <column id="31" parent="19" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="32" parent="19" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="33" parent="19" name="price">
+      <DasType>numeric(65,30 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="34" parent="19" name="sale_price">
+      <DasType>numeric(65,30 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="35" parent="19" name="img">
+      <DasType>text|0s</DasType>
+      <Position>5</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="36" parent="19" name="description">
+      <DasType>text|0s</DasType>
+      <Position>6</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="37" parent="19" name="create_at">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>current_timestamp()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="38" parent="19" name="state">
+      <DasType>Food_State|0s</DasType>
+      <DefaultExpression>&apos;available&apos;::defaultdb.public.Food_State</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <TypeId>100704</TypeId>
+    </column>
+    <column id="39" parent="19" name="category">
+      <DasType>Food_Cat|0s</DasType>
+      <DefaultExpression>&apos;other&apos;::defaultdb.public.Food_Cat</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+      <TypeId>100706</TypeId>
+    </column>
+    <index id="40" parent="19" name="FoodItem_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>779038209</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <key id="41" parent="19" name="FoodItem_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>779038209</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>779038209</UnderlyingIndexId>
+    </key>
+    <column id="42" parent="20" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="43" parent="20" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="44" parent="20" name="unit">
+      <DasType>Ingredient_Unit|0s</DasType>
+      <DefaultExpression>&apos;the&apos;::defaultdb.public.Ingredient_Unit</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <TypeId>100702</TypeId>
+    </column>
+    <column id="45" parent="20" name="supplierId">
+      <DasType>uuid|0s</DasType>
+      <Position>4</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="46" parent="20" name="price">
+      <DasType>numeric(65,30 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <TypeId>1700</TypeId>
+    </column>
+    <foreign-key id="47" parent="20" name="Ingredient_supplierId_fkey">
+      <ColNames>supplierId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>1649902375</ObjectId>
+      <OnDelete>set-null</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefColPositions>1</RefColPositions>
+      <RefTableId>709</RefTableId>
+      <RefTableName>Supplier</RefTableName>
+    </foreign-key>
+    <index id="48" parent="20" name="Ingredient_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>2124115216</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <key id="49" parent="20" name="Ingredient_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>2124115216</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>2124115216</UnderlyingIndexId>
+    </key>
+    <column id="50" parent="21" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="51" parent="21" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="52" parent="21" name="email">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="53" parent="21" name="phone">
+      <DasType>text|0s</DasType>
+      <Position>4</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="54" parent="21" name="supplierId">
+      <DasType>uuid|0s</DasType>
+      <Position>5</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <index id="55" parent="21" name="Supplier_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3469192227</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <index id="56" parent="21" name="Supplier_email_key">
+      <ColNames>email</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3469192224</ObjectId>
+      <Unique>1</Unique>
+    </index>
+    <key id="57" parent="21" name="Supplier_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3469192227</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>3469192227</UnderlyingIndexId>
+    </key>
+    <key id="58" parent="21" name="Supplier_email_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>539212202</ObjectId>
+      <UnderlyingIndexId>3469192224</UnderlyingIndexId>
+    </key>
+    <column id="59" parent="22" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="60" parent="22" name="name">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="61" parent="22" name="email">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="62" parent="22" name="username">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="63" parent="22" name="password">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="64" parent="22" name="state">
+      <DasType>User_State|0s</DasType>
+      <DefaultExpression>&apos;unavailable&apos;::defaultdb.public.User_State</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <TypeId>100698</TypeId>
+    </column>
+    <column id="65" parent="22" name="role">
+      <DasType>User_Role|0s</DasType>
+      <DefaultExpression>&apos;other&apos;::defaultdb.public.User_Role</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <TypeId>100700</TypeId>
+    </column>
+    <column id="66" parent="22" name="created_at">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>current_timestamp()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="67" parent="22" name="User_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>519301938</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <index id="68" parent="22" name="User_email_key">
+      <ColNames>email</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>519301937</ObjectId>
+      <Unique>1</Unique>
+    </index>
+    <index id="69" parent="22" name="User_username_key">
+      <ColNames>username</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>519301943</ObjectId>
+      <Unique>1</Unique>
+    </index>
+    <key id="70" parent="22" name="User_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>519301938</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>519301938</UnderlyingIndexId>
+    </key>
+    <key id="71" parent="22" name="User_email_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>1884289211</ObjectId>
+      <UnderlyingIndexId>519301937</UnderlyingIndexId>
+    </key>
+    <key id="72" parent="22" name="User_username_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>1884289213</ObjectId>
+      <UnderlyingIndexId>519301943</UnderlyingIndexId>
+    </key>
+    <column id="73" parent="23" name="id">
+      <DasType>varchar(36)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="74" parent="23" name="checksum">
+      <DasType>varchar(64)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="75" parent="23" name="finished_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <Position>3</Position>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="76" parent="23" name="migration_name">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="77" parent="23" name="logs">
+      <DasType>text|0s</DasType>
+      <Position>5</Position>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="78" parent="23" name="rolled_back_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <Position>6</Position>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="79" parent="23" name="started_at">
+      <DasType>timestamp with time zone|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="80" parent="23" name="applied_steps_count">
+      <DasType>bigint|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+      <TypeId>20</TypeId>
+    </column>
+    <index id="81" parent="23" name="_prisma_migrations_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3793961875</ObjectId>
+      <Primary>1</Primary>
+      <Unique>1</Unique>
+    </index>
+    <key id="82" parent="23" name="_prisma_migrations_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>3793961875</ObjectId>
+      <Primary>1</Primary>
+      <UnderlyingIndexId>3793961875</UnderlyingIndexId>
+    </key>
+  </database-model>
+</dataSource>
