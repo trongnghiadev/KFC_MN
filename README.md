@@ -21,9 +21,9 @@ Thực hiện việc order của khách hàng thay vì nhân viên ghi ord
 
 Kết thúc việc order, hệ thống sẽ tự tính số tiền mà khách hàng phải trả cũng in hoá đơn toán cho khách hàng
 
-Hệ thống nước khách hàng mua trực tiếp bán nước tự động cửa hang
+Hệ thống nước khách hàng mua trực tiếp bán nước tự động cửa hàng
 
-Hệ thống nối với hệ thống giúp kho quản lý nguyên vật liệu nấu ăn và việc sửa chữa các thiết bị hỏng hóc Qua đó hệ thống này sẽ tính các khoản phải tri vòng tháng
+Hệ thống nối với hệ thống giúp kho quản lý nguyên vật liệu nấu ăn và việc sửa chữa các thiết bị hỏng hóc qua đó hệ thống này sẽ tính các khoản phải chi trong vòng 1 tháng
 
 Hệ thống kết nối với hệ thống giúp lưu thông tin của nhân viên(số ngày làm, số ngày nghỉ, ngày vào làm) và nhân viên muốn nghỉ phải đăng ký trước với hệ thống 1,  ngày để qua đó giám sát mức độ làm việc và thống kê để người quản lý biết mà khen thưởng, phạt( hoặc tăng giảm trực tiếp vào lương)
 
