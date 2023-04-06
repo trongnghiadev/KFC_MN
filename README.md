@@ -21,7 +21,7 @@ Thực hiện việc order của khách hàng thay vì nhân viên ghi ord
 
 Kết thúc việc order, hệ thống sẽ tự tính số tiền mà khách hàng phải trả cũng in hoá đơn toán cho khách hàng
 
-Hệ thống nước khách hàng mua trực tiếp bán nước tự động cửa hàng
+Hệ thống nước khách hàng mua trực tiếp bán nước tự động cửa hàng.
 
 Hệ thống nối với hệ thống giúp kho quản lý nguyên vật liệu nấu ăn và việc sửa chữa các thiết bị hỏng hóc qua đó hệ thống này sẽ tính các khoản phải chi trong vòng 1 tháng
 
@@ -29,4 +29,4 @@ Hệ thống kết nối với hệ thống giúp lưu thông tin của 
 
 Trên hệ thống mạng trực thuộc hệ thống quản lý còn có các feedback ( thông tin phản hồi) để nhà quản lý nhận được các phản hồi của khách hàng, qua đấy sẽ có những điều chỉnh thích hợp về tác phong làm việc, thái độ phục vụ của nhân viên, chất lương đồ ăn, giá cả,…
 
-Cuối cùng hệ thống sẽ tổng hợp thành bản quản lý toàn bộ các định lượng món ăn, danh sách nguyên vật liệu đầu vào, các nhà cung cấp, các giao dịch và quản lý báo cáo nhập- xuất- tồn và công tác kiểm kê, tính toán chênh lệch, thừa, thiếu, lãi, lỗ từ việc bán hàng
+Cuối cùng hệ thống sẽ tổng hợp thành bản quản lý toàn bộ các định lượng món ăn, danh sách nguyên vật liệu đầu vào, các nhà cung cấp, các giao dịch và quản lý báo cáo nhập- xuất- tồn và công tác kiểm kê, tính toán chênh lệch, thừa, thiếu, lãi, lỗ từ việc bán hàng.
