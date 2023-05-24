@@ -7,12 +7,24 @@ import CusBox from "../../../components/CusBox/cusBox";
 import CusDataGridToolBar from "../../../components/CusDataGridToolBar/cusDataGridToolBar";
 import {toast} from "react-toastify";
 import CusConfirmDialog from "../../../components/CusConfirmDialog/cusConfirmDialog";
+import useFetch from "../../../Hooks/useFetch";
+import LoadingCover from "../../../components/LoadingCover/loadingCover";
 
 const UserRoles = ["admin", "wh", "sale", "hr", "other"]
 
 const Users = () => {
     const [users, setUsers] = useState([]);
+    const {data, isLoading, isError, fetchFor} = useFetch({
+        method: "get",
+        path: "/users",
+        fetchFor: "User"
+    })
 
+    // Fetch table users
+    useEffect(()=>{
+        // @ts-ignore
+        if (data != null && fetchFor == "User") setUsers(data.users)
+    }, [data])
 
     // Form reducer handler
     const reducerInit = {
@@ -32,13 +44,6 @@ const Users = () => {
         reducerInit
     );
 
-    // Fetch table users
-    useEffect(() => {
-        axios.get(env.serverUrl + "/users")
-            .then((res) => {
-                setUsers(res.data.users)
-            })
-    }, [userFormInput])
 
 
     //User form input handlers
@@ -68,7 +73,7 @@ const Users = () => {
     const createNewUserHandler: EventHandler<any> = (e) => {
         toast.promise(
             axios.post(
-                env.serverUrl + '/users',
+                env.serverUrl + '/auth/register',
                 {...userFormInput, state: userFormInput.activate ? "available" : "unavailable"}
             ),
             {
@@ -172,6 +177,7 @@ const Users = () => {
     }
     return (
         <>
+            <LoadingCover visible={isLoading} />
             <CusConfirmDialog confirmHandler={blockUserHandler}
                               open={userFormInput.openBlockedConfirm}
                               closeHandler={() => setUserFormInput({openBlockedConfirm: false})}
@@ -277,6 +283,7 @@ const Users = () => {
                             columns={usersTableColumns}
                             rows={usersTableRows}
                             pageSize={5}
+                            isRowSelectable={(params)=> params.row.id != localStorage.getItem("uid")}
                             rowsPerPageOptions={[5]}
                             components={{Toolbar: GridToolbarFilterButton}}
                             autoHeight

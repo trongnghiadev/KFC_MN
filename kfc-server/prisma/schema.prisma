@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -8,33 +9,39 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name       String
-  email      String     @unique
+  email      String      @unique
   password   String
-  state      User_State @default(unavailable)
-  role       User_Role  @default(other)
-  created_at DateTime   @default(now())
+  state      User_State  @default(unavailable)
+  role       User_Role   @default(other)
+  created_at DateTime    @default(now())
+  Warehouses Warehouse[]
 }
 
 model Supplier {
-  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name       String
-  email      String       @unique
-  phone      String?
-  supplierId String?      @db.Uuid
-  Facility   Facility[]
-  Ingredient Ingredient[]
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  email       String       @unique
+  phone       String?
+  description String?
+  Facility    Facility[]
+  Ingredient  Ingredient[]
 }
 
 model Ingredient {
-  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name           String
-  unit           Ingredient_Unit  @default(the)
-  supplierId     String?          @db.Uuid
-  price          Decimal
-  foodIngredient FoodIngredient[]
-  supplier       Supplier?        @relation(fields: [supplierId], references: [id])
+  id                          String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                        String
+  unit                        Ingredient_Unit               @default(the)
+  supplierId                  String?                       @db.Uuid
+  cost                        Decimal
+  stock                       Decimal
+  warehouseId                 String?                       @db.Uuid
+  state                       Ingredient_State              @default(available)
+  foodIngredient              FoodIngredient[]
+  supplier                    Supplier?                     @relation(fields: [supplierId], references: [id])
+  warehouse                   Warehouse?                    @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  Inventory_Adjustment_Detail Inventory_Adjustment_Detail[]
 }
 
 model FoodItem {
@@ -42,12 +49,13 @@ model FoodItem {
   name           String
   price          Decimal
   sale_price     Decimal
-  img            String?
+  image          String?
   description    String?
   create_at      DateTime         @default(now())
   state          Food_State       @default(available)
   category       Food_Cat         @default(other)
   foodIngredient FoodIngredient[]
+  Receipt_Detail Receipt_Detail[]
 }
 
 model FoodIngredient {
@@ -61,15 +69,73 @@ model FoodIngredient {
 }
 
 model Facility {
-  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  in_value     Decimal        @default(0)
-  amount       Decimal  
-  issue_amount Decimal  @default(0)
-  state        Facility_State @default(available)
-  unit         Ingredient_Unit  @default(the)
-  supplierId   String?        @db.Uuid
-  supplier     Supplier?      @relation(fields: [supplierId], references: [id])
+  cost         Decimal         @default(0)
+  amount       Decimal
+  issue_amount Decimal         @default(0)
+  state        Facility_State  @default(available)
+  supplierId   String?         @db.Uuid
+  image        String?
+  unit         Ingredient_Unit @default(the)
+  warehouseId  String?         @db.Uuid
+  supplier     Supplier?       @relation(fields: [supplierId], references: [id])
+  warehouse    Warehouse?      @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+}
+
+model Warehouse {
+  id                  String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  state               Warehouse_State
+  address             String
+  ownerId             String?                @db.Uuid
+  facilities          Facility[]
+  ingredients         Ingredient[]
+  inventoryAdjustment Inventory_Adjustment[]
+  owner               User?                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+model Inventory_Adjustment {
+  id            String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  state         Inventory_Adjustment_State    @default(draft)
+  created_at    DateTime                      @default(now())
+  delivered_at  DateTime?
+  from          String
+  note          String?
+  received_at   DateTime?
+  to            String
+  type          Inventory_Adjustment_Type
+  warehouseId   String                        @db.Uuid
+  warehouse     Warehouse                     @relation(fields: [warehouseId], references: [id])
+  inboundDetail Inventory_Adjustment_Detail[]
+}
+
+model Inventory_Adjustment_Detail {
+  id                    String               @db.Uuid
+  ingredientId          String               @db.Uuid
+  diff                  Decimal
+  inventoryAdjustmentId Inventory_Adjustment @relation(fields: [id], references: [id])
+  ingredients           Ingredient           @relation(fields: [ingredientId], references: [id])
+
+  @@id([id, ingredientId])
+}
+
+model Receipt {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  state          Receipt_State    @default(pending)
+  create_at      DateTime         @default(now())
+  paymentMethod PaymentMethod @default(cash)
+  Receipt_Detail Receipt_Detail[]
+}
+
+model Receipt_Detail {
+  id      String   @db.Uuid
+  foodId  String   @db.Uuid
+  amount  Decimal
+  food    FoodItem @relation(fields: [foodId], references: [id])
+  receipt Receipt  @relation(fields: [id], references: [id])
+
+  @@id([id, foodId])
 }
 
 enum User_State {
@@ -117,4 +183,46 @@ enum Facility_State {
   available
   unavailable
   issues
+}
+
+enum Inventory_Adjustment_State {
+  draft
+  confirm
+  validated
+  transfer
+  done
+  cancel
+  return
+}
+
+enum Warehouse_State {
+  active
+  inactive
+}
+
+enum Inventory_Adjustment_Type {
+  inbound
+  outbound
+  transfer
+  update
+  scrap
+}
+
+enum Ingredient_State {
+  available
+  ofs
+  unavailable
+}
+
+enum Receipt_State {
+  pending
+  cancel
+  paid
+  done
+}
+
+enum PaymentMethod{
+  cash
+  card
+  qr
 }

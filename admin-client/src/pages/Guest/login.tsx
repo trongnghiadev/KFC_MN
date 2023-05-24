@@ -15,7 +15,7 @@ const loginStyle = {
 
 const Login = () => {
 
-    const navigator = useNavigate()
+    const navigator = useNavigate();
 
     const [input, updateInput] = useReducer((state: any, newState: any) => ({...state, ...newState}),
         {
@@ -25,14 +25,15 @@ const Login = () => {
     )
 
     useEffect(()=>{
-        localStorage.removeItem("uid")
-    }, [])
+        localStorage.removeItem("accessToken")
+        delete axios.defaults.headers.common['Authorization'];
+    })
 
     const signInHandler = () => {
         const loginFn = axios({
             method: "post",
             data: {...input, app: "admin"},
-            url: env.serverUrl + "/login"
+            url: env.serverUrl + "/auth/login"
         })
 
         toast.promise(loginFn, {
@@ -46,10 +47,12 @@ const Login = () => {
             }
         }).then((res) => {
             if (res.data.success) {
+                localStorage.setItem("accessToken", res.data.accessToken)
                 localStorage.setItem("uid", res.data.uid)
-                navigator('/');
             }
         })
+            .finally(()=>
+                navigator('/'))
     }
 
     return (

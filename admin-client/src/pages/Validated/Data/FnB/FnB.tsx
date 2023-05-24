@@ -10,6 +10,9 @@ import {toast} from "react-toastify";
 import CusBox from "../../../../components/CusBox/cusBox";
 import CusConfirmDialog from "../../../../components/CusConfirmDialog/cusConfirmDialog";
 import FoodDetails, {FoodDetailProps} from "./foodDetails";
+import NoImgFound from "../../../../components/NoImgFound/noImgFound";
+import useFetch from "../../../../Hooks/useFetch";
+import LoadingCover from "../../../../components/LoadingCover/loadingCover";
 
 const FnB = () => {
     const navigate = useNavigate()
@@ -35,17 +38,18 @@ const FnB = () => {
     const [foods, setFoods] = useState<Array<FoodDetailProps["food"]>>([]);
     const [foodCat, setFoodCat] = useState([]);
     const [render, requestRerender] = useState(false);
-    console.log(foods)
+    const {data, isLoading, fetchFor} = useFetch({
+        method: "get",
+        path: "/foods",
+        fetchFor: "Food"
+    })
 
     const rerender = () => requestRerender((prev) => !prev)
 
-
     useEffect(() => {
-        axios({
-            method: "get",
-            url: env.serverUrl + "/foods"
-        }).then((res) => setFoods(res.data.foods))
-    }, [render])
+        // @ts-ignore
+        if (data != null && fetchFor == "Food") setFoods(data.foods)
+    }, [data])
 
     useEffect(() => {
         axios({
@@ -67,7 +71,10 @@ const FnB = () => {
             newValue = newVal ? "onsale" : "unavailable"
             name = "state"
         }
-        if (name === "image") newValue = evt.target.files[0]
+        if (name === "image") {
+            // Preview image before upload
+            newValue = URL.createObjectURL(evt.target.files[0]);
+        }
         setFoodStates({inputs: {...foodStates.inputs, [name]: newValue}});
     };
     // Foods table config
@@ -96,6 +103,8 @@ const FnB = () => {
             form.append(prop, foodStates.inputs[prop])
         }
 
+        // @ts-ignore
+        form.append("uid", localStorage.getItem("uid"))
         toast.promise(axios({
             method: "post",
             url: env.serverUrl + "/foods",
@@ -118,10 +127,13 @@ const FnB = () => {
         for (const prop of Object.getOwnPropertyNames(foodStates.inputs)) {
             form.append(prop, foodStates.inputs[prop])
         }
+
+        // @ts-ignore
+        form.append("uid", localStorage.getItem("uid"))
         toast.promise(axios({
             method: "put",
             url: env.serverUrl + "/foods/" + selectingFood[0],
-            data: form
+            data: form,
         }), {
             pending: "Verifying data",
             success: "Update successfully",
@@ -138,7 +150,7 @@ const FnB = () => {
         toast.promise(axios({
             method: "put",
             url: env.serverUrl + "/foods/" + selectingFood[0],
-            data: {...foodStates.inputs, category: undefined, state: "unavailable"}
+            data: {...foodStates.inputs, category: undefined, state: "unavailable", uid: localStorage.getItem("uid")}
         }), {
             pending: "Verifying data",
             success: "Item just jumped out of the menu",
@@ -195,6 +207,7 @@ const FnB = () => {
     return (
         <div>
             {/*       Confirm Providers*/}
+            <LoadingCover visible={isLoading}/>
             <CusConfirmDialog confirmHandler={blockFoodHandler}
                               open={foodStates.openBlockConfirm}
                               closeHandler={() => setFoodStates({openBlockConfirm: false})}
@@ -217,78 +230,87 @@ const FnB = () => {
                 }}
             >
                 <Fade in={foodStates.openAddForm || foodStates.openUpdateForm}>
-                    <div className={"bg-white w-[50vw] md:max-w-[30vw] h-fit max-h-[90vh] z-10"}>
-                        <CusBox header={foodStates.openAddForm ? "Add new food item" : "Update a food item"}>
-                            <Box component={"form"}>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    defaultValue={foodStates.inputs.name}
-                                    id="name"
-                                    label="Food's name"
-                                    name="name"
-                                    autoFocus
-                                    onChange={handleInput}
-                                />
-                                <TextField
-                                    margin="normal"
-                                    type='number'
-                                    fullWidth
-                                    defaultValue={foodStates.inputs.price}
-                                    id="price"
-                                    label="Price (VND)"
-                                    name="price"
-                                    onChange={handleInput}
-                                />
-                                <TextField
-                                    margin="normal"
-                                    fullWidth
-                                    defaultValue={foodStates.inputs.description}
-                                    id="description"
-                                    label="Description"
-                                    name="description"
-                                    onChange={handleInput}
-                                />
-                                <Autocomplete
-                                    id="category"
-                                    value={foodStates.inputs.category}
-                                    defaultValue={foodStates.inputs.category}
-                                    options={foodCat}
-                                    onChange={handleInput}
-                                    renderInput={(params) => (
-                                        <TextField margin={"normal"}
-                                                   {...params}
-                                                   label="Category"/>)}
-                                />
-                                <div className="w-full">
-                                    <label htmlFor={"img"}>Upload image</label>
-                                    <input id="image" name={"image"} type="file" className="w-full my-2"
-                                           onChange={handleInput}/>
+                    <div className="flex flex-col md:flex-row">
+                        <div className={"bg-white w-[50vw] md:max-w-[30vw] h-fit max-h-[90vh] z-10"}>
+                            <CusBox header={foodStates.openAddForm ? "Add new food item" : "Update a food item"}>
+                                <Box component={"form"}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        defaultValue={foodStates.inputs.name}
+                                        id="name"
+                                        label="Food's name"
+                                        name="name"
+                                        autoFocus
+                                        onChange={handleInput}
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        type='number'
+                                        fullWidth
+                                        defaultValue={foodStates.inputs.price}
+                                        id="price"
+                                        label="Price (VND)"
+                                        name="price"
+                                        onChange={handleInput}
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        defaultValue={foodStates.inputs.description}
+                                        id="description"
+                                        label="Description"
+                                        name="description"
+                                        onChange={handleInput}
+                                    />
+                                    <Autocomplete
+                                        id="category"
+                                        value={foodStates.inputs.category}
+                                        defaultValue={foodStates.inputs.category}
+                                        options={foodCat}
+                                        onChange={handleInput}
+                                        renderInput={(params) => (
+                                            <TextField margin={"normal"}
+                                                       {...params}
+                                                       label="Category"/>)}
+                                    />
+                                    <div className="w-full">
+                                        <label htmlFor={"img"}>Upload image</label>
+                                        <input id="image" name={"image"} type="file" accept="image/png, image/gif, image/jpeg" className="w-full my-2"
+                                               onChange={handleInput}/>
+                                    </div>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={foodStates.inputs.state == "available" || foodStates.inputs.state == "onsale"}
+                                                onChange={handleInput}
+                                                name={"state"} id={"state"} disabled={foodStates.inputs.state == "onsale"}
+                                            />}
+                                        label="Activate this item ?"/>
+                                    <FormControlLabel
+                                        control={<Checkbox checked={foodStates.inputs.state === "onsale"}
+                                                           onChange={handleInput}
+                                                           name={"state_onsale"} id={"state_onsale"}/>}
+                                        label="Put this item in sale mode ?"/>
+                                </Box>
+                                <div className={"flex gap-4 justify-end"}>
+                                    {foodStates.openAddForm &&
+                                        <Button variant={"contained"} onClick={addFoodHandler}>Add</Button>}
+                                    {foodStates.openUpdateForm &&
+                                        <Button variant={"contained"} onClick={updateFoodHandler}>Update</Button>}
+                                    <Button variant={"contained"} onClick={() => setFoodStates({...foodStateInit})}
+                                            color={"error"}>Cancel</Button>
                                 </div>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={foodStates.inputs.state == "available" || foodStates.inputs.state == "onsale"}
-                                            onChange={handleInput}
-                                            name={"state"} id={"state"} disabled={foodStates.inputs.state == "onsale"}
-                                        />}
-                                    label="Activate this item ?"/>
-                                <FormControlLabel
-                                    control={<Checkbox checked={foodStates.inputs.state === "onsale"}
-                                                       onChange={handleInput}
-                                                       name={"state_onsale"} id={"state_onsale"}/>}
-                                    label="Put this item in sale mode ?"/>
-                            </Box>
-                            <div className={"flex gap-4 justify-end"}>
-                                {foodStates.openAddForm &&
-                                    <Button variant={"contained"} onClick={addFoodHandler}>Add</Button>}
-                                {foodStates.openUpdateForm &&
-                                    <Button variant={"contained"} onClick={updateFoodHandler}>Update</Button>}
-                                <Button variant={"contained"} onClick={() => setFoodStates({...foodStateInit})}
-                                        color={"error"}>Cancel</Button>
-                            </div>
-                        </CusBox>
+                            </CusBox>
+                        </div>
+                        <div className={"bg-white w-[25vw] max-h-[90vh] z-10 p-6 relative"}>
+                            {
+                                !foodStates.inputs.image && <NoImgFound/>
+                            }{
+                            foodStates.inputs.image && <img className={"w-full object-cover"} src={foodStates.inputs.image} alt={foodStates.inputs.name}/>
+                        }
+                        </div>
                     </div>
                 </Fade>
 
@@ -300,8 +322,8 @@ const FnB = () => {
             </header>
             <section>
                 <h1>F&B Data resources</h1>
-                <div className={"flex gap-4 flex-wrap mt-4 min-h-[60vh]"}>
-                    <div className={"flex-grow max-w-[100%] bg-white p-6 rounded-md shadow  h-fit"}>
+                <div className={"flex gap-4 flex-wrap mt-4 min-h-[60vh] relative"}>
+                    <div className={"flex-grow max-w-full bg-white p-6 rounded-md shadow h-fit transition-all"}>
                         <h2>Food list</h2>
                         <CusDataGridToolBar isSelecting={!!selectingFood[0]}
                                             fnAdd={() => setFoodStates({openAddForm: true})}
@@ -317,21 +339,9 @@ const FnB = () => {
                                   pageSize={10}
                                   autoHeight/>
                     </div>
-                    <div className="w-fit bg-white p-6 rounded-md shadow">
-                        {
-                            selectingFood.length <= 0 &&
-                            // Not choosing any food items
-                            <h2>
-                                Select any food to see details
-                            </h2>
-                        }
-                        {
-                            selectingFood.length > 0 &&
-                            <div className="">
-                                <h2>Food details</h2>
-                                <FoodDetails food={foods.find((f) => f && f.id === selectingFood[0])}/>
-                            </div>
-                        }
+                    <div className={"w-fit bg-white p-6 rounded-md shadow h-fit transition-all " + (selectingFood.length > 0 ? "visible" : "hidden")}>
+                        <h2>Food details</h2>
+                        <FoodDetails food={foods.find((f) => f && f.id === selectingFood[0])}/>
                     </div>
                 </div>
             </section>

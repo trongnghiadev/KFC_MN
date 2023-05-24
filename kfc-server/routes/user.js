@@ -1,11 +1,28 @@
 const {PrismaClient, Prisma} = require("@prisma/client")
 
-const express = require("express")
+const express = require("express");
+const verifyToken = require("../middleware/auth");
 
 const router = express.Router()
 
 const prisma = new PrismaClient();
 
+// get current login info
+router.get('/current', verifyToken, async (req, res) => {
+    try{
+        const user = await prisma.user.findUnique({
+            where: {id: req.userId}, 
+            select: {id:true, name: true, email: true, role: true, state: true}
+        })
+
+        if (user === null) return res.status(404).json({success: false, message: `User does not exist`})
+
+        return res.json({success: true, user: user})
+    }
+    catch(e) {
+        return res.status(404).json({success: false, message: e.message})
+    }
+})
 
 // Get a specific user
 router.get('/:id', async (req, res) => {
@@ -26,10 +43,10 @@ router.get('/:id', async (req, res) => {
 })
 
 // Get all users
-router.get('/', async (req, res)=>{
+router.get('/', verifyToken ,async (req, res)=>{
     try{
-
-        // Find user
+        if (req.user.role != "admin") throw new Error ("No permission!")
+        // Find user    
         const user = await prisma.user.findMany({select: {id:true, name: true, email: true, role: true, state: true}})
 
         return res.json({success: true, users: user})

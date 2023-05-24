@@ -10,7 +10,7 @@ export type FoodDetailProps = {
         sale_price: string,
         description: string | null,
         state: string,
-        img: string | undefined,
+        image: string | undefined,
         category: string
     }
 }
@@ -33,9 +33,9 @@ const FoodDetails = (props: FoodDetailProps) => {
         <div className={"relative flex flex-col gap-4 max-w-[30vw] mt-4"}>
             <div>
                 <ChipMapping state={food.state}></ChipMapping>
-                <Chip variant={"outlined"} sx={{paddingInline: "0.5rem"}} label={food.category} className={"ml-2 w-fit capitalize"}/>
+                <Chip variant={"outlined"} sx={{paddingInline: "0.5rem"}} label={food.category.replaceAll("_", " ")} className={"ml-2 w-fit capitalize"}/>
             </div>
-            <img src={food.img} alt={food.name} className={"md:w-[50%] object-cover self-center"}/>
+            <img src={food.image} alt={food.name} className={"md:w-[50%] object-cover self-center"}/>
             <p className={"text-center text-gray-600"}>{food.id}</p>
             <p><b>Name</b> : {food.name}</p>
             <p><b>Price</b> : {food.price}đ</p>

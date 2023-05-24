@@ -1,6 +1,10 @@
-const {PrismaClient, Prisma} = require("@prisma/client")
+const {PrismaClient, Prisma} = require("@prisma/client");
+const { verify } = require("argon2");
 
-const express = require("express")
+const express = require("express");
+
+const verifyToken = require("../middleware/auth");
+const upload = require("../middleware/multer");
 
 const router = express.Router()
 
@@ -10,46 +14,40 @@ const prisma = new PrismaClient();
 router.get('/', async (req, res)=>{
     try {
         const suppliers = await prisma.supplier.findMany()
-        return res.json({success: true, method: "get", suppliers})
+        return res.json({success: true, suppliers})
     }
     catch (e) {
-        return res.status(401).json({success: "false", method: "get", message: e.message()})
+        return res.status(401).json({success: "false", message: e.message()})
     }
 })
 
 // Get a specific supplier infomation
 router.get('/:id', async (req, res) =>{
-    const options = req.body.options
-    const id = req.params.id
+    const {id} = req.params
     try {
         const supplier = await prisma.supplier.findFirst({where: {id}})
-
-        // Get all ingredient of a supplier
-        const supplierAndIngredients = await prisma.ingredient.findMany({where: {supplierId: id}})
-        if (options && options.getAllIngredients) return res.json({success: true, method: "get", supplier: {...supplier, ingredients: supplierAndIngredients}})
-
         // Default case
-        return res.json({success: true, method: "get", supplier})
+        return res.json({success: true, supplier})
     }
     catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
             // The .code property can be accessed in a type-safe manner
             if (e.code === 'P2001') {
-                return res.status(404).json({success: false, method: "post", message: `${e.meta.target} not found`})
+                return res.status(404).json({success: false, message: `${e.meta.target} not found`})
             }
         }
-        return res.status(401).json({success: false, method: "put", message: e.message})
+        return res.status(401).json({success: false, message: e.message})
 
     }
 } )
 
 
 // Create new supplier
-router.post('/', async (req, res) =>{
-    const {name, email, phone} = req.body
+router.post('/',verifyToken, upload.none(), async (req, res) =>{
+    const {name, email, phone, description} = req.body
     try {
         let newSupplier = {
-            name, email, phone
+            name, email, phone, description
         }
         const supplier = await prisma.supplier.create({
             data: newSupplier
@@ -61,17 +59,17 @@ router.post('/', async (req, res) =>{
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
             // The .code property can be accessed in a type-safe manner
             if (e.code === 'P2002') {
-                return res.status(404).json({success: false, method: "post", message: `Violent unique constraint, ${e.meta.target} already existed`})
+                return res.status(404).json({success: false, message: `Violent unique constraint, ${e.meta.target} already existed`})
             }
         }
-        return res.status(401).json({success: false, method: "put", message: e.message})
+        return res.status(401).json({success: false, message: e.message})
 
     }
 } )
 
 //Update supplier infomation
-router.put('/:id', async (req, res) => {
-    const {name, phone} = req.body
+router.put('/:id', verifyToken, upload.none(), async (req, res) => {
+    const {name, phone, description, email} = req.body
     const {id} = req.params
     try{
         const queryRes = await prisma.supplier.update({
@@ -80,14 +78,16 @@ router.put('/:id', async (req, res) => {
             },
             data: {
                 name: name ? name : undefined,
-                phone: phone ? phone : undefined
+                phone: phone ? phone : undefined,
+                email: email ? email : undefined,
+                description: description ? description : undefined
             }
         })
 
-        return res.json({success: true, method: "put", supplier: queryRes})
+        return res.json({success: true, supplier: queryRes})
     }
     catch(e) {
-        return res.status(404).json({success: false, method: "put", message: e.message})
+        return res.status(404).json({success: false, message: e.message})
     }
 })
 
@@ -107,10 +107,10 @@ router.delete('/:id', async (req, res) => {
             }
         })
 
-        return res.json({success: true, method: "delete", supplier: queryRes})
+        return res.json({success: true, supplier: queryRes})
     }
     catch(e) {
-        return res.status(404).json({success: false, method: "delete", message: e.message})
+        return res.status(404).json({success: false, message: e.message})
     }
 })
 
